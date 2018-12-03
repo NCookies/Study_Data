@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1543844094872.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2759193617",
+    "id" : "EFC91384",
+    "lastKnownWriteTime" : 1543848531,
+    "last_content_update" : 1543848531897,
+    "path" : "D:/R/doit_chapter2/datapreprocess.Rmd",
+    "project_path" : "datapreprocess.Rmd",
+    "properties" : {
+        "cursorPosition" : "171,2",
+        "scrollLine" : "154",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

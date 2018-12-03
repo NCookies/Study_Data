@@ -1,0 +1,188 @@
+---
+title: "datapreprocess"
+author: "ncookie"
+date: "2018년 12월 3일"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get Started
+
+```
+install.packages("dplyr")
+library(dplyr)
+
+exam <- read.csv("csv_exam.csv")
+```
+
+## Set Conditions
+```
+exam %>% filter(math > 50)
+exam %>% filter(math < 50)
+exam %>% filter(english >= 80)
+exam %>% filter(english <= 80)
+```
+
+## Set Multi Conditions
+```
+exam %>% filter(class == 1 & math >= 50)
+exam %>% filter(class == 1 & english >= 80)
+
+exam %>% filter(math >= 90 | english >= 90)
+exam %>% filter(english < 90 | science < 50)
+
+exam %>% filter(class == 1 | class == 3 | class == 5)
+exam %>% filter(class %in% c(1, 3, 5))
+```
+
+## Make Data from extract rows
+```
+class1 <- exam %>% filter(class == 1)
+class2 <- exam %>% filter(class == 2)
+
+mean(class1$math)
+mean(class2$math)
+```
+
+## Try it myself : 06-2
+```
+install.packages("ggplot2")
+library(ggplot2)
+
+mpg <- as.data.frame(ggplot2::mpg)
+
+# Q1
+mpg_a <- mpg %>% filter(displ <= 4)
+mpg_b <- mpg %>% filter(displ >= 5)
+
+mean(mpg_a$hwy)
+mean(mpg_b$hwy)
+
+# Q2
+mpg_audi <- mpg %>% filter(manufacturer == "audi")
+mpg_toyota <- mpg %>% filter(manufacturer == "toyota")
+
+mean(mpg_audi$cty)
+mean(mpg_toyota$cty)
+
+# Q3
+mpg_cars <- mpg %>% filter(manufacturer %in% c("chevrolet", "ford", "honda"))
+mean(mpg_cars$hwy)
+```
+
+## Try it myself : 06-3
+```
+# Q1
+mpg_class_cty <- mpg %>% select(class, cty)
+
+# Q2
+mpg_suv <- mpg_class_cty %>% filter(class == "suv")
+mpg_compact <- mpg_class_cty %>% filter(class == "compact")
+
+mean(mpg_suv$cty)
+mean(mpg_compact$cty)
+```
+
+## Try it myself : 06-4
+```
+# Q1
+mpg %>% filter(manufacturer == "audi") %>% arrange(desc(hwy)) %>% head(5)
+```
+
+## Try it myself : 06-5
+```
+# Q1
+df <- mpg
+df <- df %>% mutate(sum = cty + hwy)
+
+# Q2
+df <- df %>% mutate(avg = sum / 2)
+
+# Q3
+df %>% arrange(desc(avg)) %>% head(3)
+
+# Q4
+mpg %>% 
+  mutate(sum = cty + hwy) %>% 
+  mutate(avg = sum / 2) %>% 
+  arrange(desc(avg)) %>% 
+  head(3)
+```
+
+## Try it myself : 06-6
+```
+# Q1
+mpg %>% 
+  group_by(class) %>% 
+  summarise(avg_cty = mean(cty))
+  
+# Q2
+mpg %>% 
+  group_by(class) %>% 
+  summarise(avg_cty = mean(cty)) %>% 
+  arrange(desc(avg_cty))
+  
+# Q3
+mpg %>% 
+  group_by(class) %>% 
+  summarise(avg_hwy = mean(hwy)) %>% 
+  arrange(desc(avg_hwy)) %>% 
+  head(3)
+  
+# Q4
+mpg %>% 
+  filter(class == "compact") %>% 
+  group_by(manufacturer) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n))
+```
+
+## Try it myself : 06-7
+```
+fuel <- data.frame(fl = c("c", "d", "e", "p", "r"),
+                   price_fl = c(2.35, 2.38, 2.11, 2.76, 2.22),
+                   stringsAsFactors = F)
+fuel
+
+# Q1
+mpg <- left_join(mpg, fuel, by = "fl")
+
+# Q2
+mpg %>% 
+  select(model, fl, price_fl) %>% 
+  head(5)
+```
+
+## Analysis Challenge
+```
+midwest <- as.data.frame(ggplot2::midwest)
+
+# Q1
+midwest <- midwest %>% 
+                    mutate(minority_rate = (poptotal - popadults) / poptotal * 100)
+
+# Q2
+midwest %>% 
+  select(county, minority_rate) %>% 
+  arrange(desc(minority_rate)) %>% 
+  head(5)
+  
+# Q3
+midwest <- midwest %>% 
+                    mutate(minority_rate_grade = ifelse(minority_rate >= 40, "large", 
+                                                        ifelse(minority_rate < 30, "small", "middle")))
+midwest %>% 
+        group_by(minority_rate_grade) %>% 
+        summarise(n = n())
+table(midwest$minority_rate_grade)
+        
+# Q4
+midwest %>% 
+        mutate(asian_rate = popasian / poptotal * 100) %>% 
+        select(state, county, asian_rate) %>% 
+        arrange(asian_rate) %>% 
+        head(10)
+```

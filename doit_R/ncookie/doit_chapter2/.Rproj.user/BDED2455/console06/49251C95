@@ -1,0 +1,19 @@
+[0m[0K      1 [main] cut (2092) C:\cygwin64\bin\cut.exe: *** fatal error - cygheap ba[0Ks[?25l
+e mismatch detected - 0x180318410/0x18031D410.[0K
+This problem is probably due to using incompatible versions of the cygwin DLL.[0K
+Search for cygwin1.dll using the Windows Start->Find/Search facility[0K
+and delete all but the most recent version.  The most recent version *should*[0K
+reside in x:\cygwin\bin, where 'x' is the drive on which you have[0K
+installed the cygwin distribution.  Rebooting is also suggested if you[0K
+are unable to find another cygwin DLL.[0K
+[0K[?25h[?25l[8A      1 [main] cut (2092) C:\cygwin64\bin\cut.exe: *** fatal error - cygheap base mismatch detected - 0x180318410/0x18031D410[0K.
+[0K
+This problem is probably due to using incompatible versions of the cygwin DLL.[0K
+Search for cygwin1.dll using the Windows Start->Find/Search facility[0K
+and delete all but the most recent version.  The most recent version *should*[0K
+reside in x:\cygwin\bin, where 'x' is the drive on which you have[0K
+installed the cygwin distribution.  Rebooting is also suggested if you[0K
+are unable to find another cygwin DLL.[0K
+[0K[?25h]0;:/d/R/doit_chapter2[?25l
+[0;32mswsta@DESKTOP-KLR2M01 [0;35m [0;33m/d/R/doit_chapter2[0m[0K
+$[0K[3G[?25h
